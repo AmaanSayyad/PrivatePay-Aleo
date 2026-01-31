@@ -61,7 +61,7 @@ const UserProfileButton = () => {
         return;
       }
       console.error("Failed to connect wallet:", error);
-      if (error.message?.includes("wallet not found") || error.message?.includes("Aptos")) {
+      if (error.message?.includes("wallet not found")) {
         toast.error(
           <div>
             <p className="font-semibold">Leo Wallet Not Found</p>

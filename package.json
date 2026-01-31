@@ -21,8 +21,6 @@
     "leo:clean": "cd aleo && leo clean"
   },
   "dependencies": {
-    "@aptos-labs/ts-sdk": "^5.1.5",
-    "@aptos-labs/wallet-adapter-react": "^7.2.6",
     "@arcium-hq/client": "^0.5.1",
     "@chain-registry/osmosis": "^1.67.149",
     "@chain-registry/types": "^2.0.124",
@@ -59,7 +57,6 @@
     "@supabase/supabase-js": "^2.86.0",
     "@telegram-apps/bridge": "^1.9.2",
     "@uidotdev/usehooks": "^2.4.1",
-    "aptos": "^1.22.1",
     "axios": "^1.7.7",
     "bech32": "^2.0.0",
     "bip39": "^3.1.0",
@@ -84,7 +81,6 @@
     "npm": "^11.7.0",
     "o1js": "^2.12.0",
     "osmojs": "^16.15.0",
-    "petra-plugin-wallet-adapter": "^0.4.5",
     "react": "^18.3.1",
     "react-cookie": "^7.2.0",
     "react-dom": "^18.3.1",

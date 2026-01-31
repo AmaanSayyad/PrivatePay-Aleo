@@ -1,7 +1,7 @@
 /**
  * App wallet hook — Aleo (Leo Wallet) only.
  * Exposes { account, isConnected, connect, disconnect, requestTransaction, transactionStatus }
- * for use anywhere we previously used useAptos.
+ * for use anywhere we need wallet state (Aleo).
  */
 import { useWallet } from '@demox-labs/aleo-wallet-adapter-react';
 

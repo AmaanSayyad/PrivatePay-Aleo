@@ -57,7 +57,7 @@ export function safeSetJSON(key, value) {
         // Clear balance history for old accounts (keep last 7 days)
         const keys = Object.keys(localStorage);
         keys.forEach(k => {
-          if (k.startsWith('aleo_balance_history_') || k.startsWith('aptos_balance_history_')) {
+          if (k.startsWith('aleo_balance_history_')) {
             localStorage.removeItem(k);
           }
         });
