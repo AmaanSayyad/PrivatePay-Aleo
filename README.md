@@ -74,6 +74,9 @@ PrivatePay is submitted to the **[Aleo Privacy Buildathon](https://app.akindo.io
 - Receiver cannot identify sender
 - Observers see nothing linkable
 
+<img width="1480" height="638" alt="Screenshot 2026-01-31 at 7 41 21 PM" src="https://github.com/user-attachments/assets/d12ab65e-7e1d-43bc-bb8a-66a1c91066a9" />
+
+
 ### Payment Link → Treasury Flow (Aleo)
 
 ```mermaid
