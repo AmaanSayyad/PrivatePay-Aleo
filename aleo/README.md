@@ -12,9 +12,8 @@ This directory contains the Leo programs that implement privacy-preserving DeFi 
 - `zk_credit.aleo` - Zero-knowledge credit scoring system
 - `private_lending.aleo` - Privacy-preserving lending pools
 
-### Cross-Chain Programs
-- `cross_chain_vault.aleo` - Multi-chain yield farming with private positions
-- `bridge_manager.aleo` - Cross-chain asset bridging with cryptographic proofs
+### Vault Programs
+- `cross_chain_vault.aleo` - Yield vault with private positions (Aleo)
 
 ### Treasury and Compliance Programs
 - `treasury_management.aleo` - Multi-signature treasury with private allocations

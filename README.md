@@ -11,9 +11,7 @@ PrivatePay is submitted to the **[Aleo Privacy Buildathon](https://app.akindo.io
 
 ---
 
-**Simply means:** Stealth Crypto Payments using multilayer forks
-
-Powered by ECDH + secp256k1 + BIP 0352/EIP 5564 + ROFL DarkPool Mixer
+**Vision:** Private payments and DeFi on **Aleo only** — payment links, treasury flows, Leo Wallet, and 7 Leo programs (credit, lending, dark pool, AMM, vaults, treasury, compliance). Zero-knowledge by default.
 
 ---
 
@@ -348,7 +346,7 @@ sequenceDiagram
   participant Wallet as Wallet Adapters
   participant Chain as Aleo Testnet
   participant Infra as Infrastructure Services
-  participant Relayer as Bridge Relayers
+  participant Relayer as Treasury Relayer
 
   User->>UI: Open PrivatePay
   UI->>Supabase: Load user data, payment links

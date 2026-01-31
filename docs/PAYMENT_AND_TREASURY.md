@@ -1,4 +1,6 @@
-# Payment & Treasury Model
+# Payment & Treasury Model (Aleo)
+
+PrivatePay uses a **single treasury** on Aleo. All payments go on-chain to one address; recipients are credited in-app and withdraw to their Leo wallet.
 
 ## How it works
 

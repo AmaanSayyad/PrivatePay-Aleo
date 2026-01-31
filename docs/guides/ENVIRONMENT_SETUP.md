@@ -6,7 +6,7 @@
 
 ## Overview
 
-Environment variables for PrivatePay (Aleo). Use a root `.env` file (never commit it).
+Environment variables for **PrivatePay (Aleo)**. The app is Aleo-only: Leo Wallet, treasury payments, points, and DeFi. Use a root `.env` file (never commit it).
 
 ---
 

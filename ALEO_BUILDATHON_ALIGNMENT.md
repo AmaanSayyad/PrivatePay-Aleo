@@ -83,7 +83,7 @@ All programs use Aleo’s **record** model (encrypted state) and **transitions**
 
 - **Wallet:** `@demox-labs/aleo-wallet-adapter-react`, `@demox-labs/aleo-wallet-adapter-leo`, `AleoProvider.jsx` (Testnet Beta).
 - **Routes:** `/aleo`, `/aleo/darkpool`, `/aleo/amm`, `/aleo/credit`, `/aleo/lending`, `/aleo/vaults`, `/aleo/treasury`.
-- **Lib:** `src/lib/aleo/` — `sdk.js`, `credit.js`, `lending.js`, `darkpool.js`, `amm.js`, `treasury.js`, `bridge.js`, `compliance.js`, `constants.js`, `utils.js`, `transactionWrapper.js`, `aleoTransactionHelper.js`.
+- **Lib:** `src/lib/aleo/` — `sdk.js`, `credit.js`, `lending.js`, `darkpool.js`, `amm.js`, `treasury.js`, `compliance.js`, `constants.js`, `utils.js`, `transactionWrapper.js`, `aleoTransactionHelper.js`.
 - **Pages:** `AleoPage`, `AleoCreditPage`, `AleoLendingPage`, `AleoDarkPoolPage`, `AleoAMMPage`, `AleoVaultsPage`, `AleoTreasuryPage`.
 
 ---
@@ -98,7 +98,7 @@ All programs use Aleo’s **record** model (encrypted state) and **transitions**
    - Document program ID(s) and network in README and, if applicable, in `aleo/deployment-info.json` / `aleo/README.md`.
 
 2. **Add Aleo to README tagline and one short “Aleo Buildathon” section**  
-   - Include Aleo in the first line of README (e.g. “PrivatePay — … on Arcium + Aztec + **Aleo** + …”).  
+   - Include Aleo in the first line of README (e.g. “PrivatePay — private payments on **Aleo**”).  
    - Add 2–3 sentences: PrivatePay is submitted to the Aleo Privacy Buildathon; link to buildathon page; one line on what you built on Aleo (Leo programs + UI).
 
 3. **Document team and grant wallet**  

@@ -18,7 +18,7 @@ This document describes how PrivatePay integrates with **Aleo** and its **Leo** 
 │  ├── sdk.js, constants.js, utils.js                                    │
 │  ├── transactionWrapper.js, aleoTransactionHelper.js                    │
 │  ├── credit.js, lending.js, darkpool.js, amm.js                         │
-│  ├── treasury.js, bridge.js, compliance.js                             │
+│  ├── treasury.js, compliance.js                                        │
 │  └── errorHandling.js                                                    │
 └─────────────────────────────────────────────────────────────────────────┘
                                     │

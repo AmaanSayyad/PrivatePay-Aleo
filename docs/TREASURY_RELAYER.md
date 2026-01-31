@@ -1,6 +1,6 @@
-# Treasury Relayer: Withdrawal from Treasury
+# Treasury Relayer: Withdrawal from Treasury (Aleo)
 
-With the treasury model, all payments go to a single treasury address. Receivers see a **credited balance** in the app and can **withdraw** that amount from the treasury to their Leo wallet. The relayer (backend) performs the on-chain transfer from the treasury to the user.
+With the treasury model, all payments go on-chain to a single **Aleo** treasury address. Receivers see a **credited balance** in the app and can **withdraw** that amount from the treasury to their Leo wallet. The relayer (backend) performs the on-chain transfer from the treasury to the user.
 
 ## What the relayer must do
 

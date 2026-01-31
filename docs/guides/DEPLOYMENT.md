@@ -1,4 +1,4 @@
-# Deployment Guide - PrivatePay
+# Deployment Guide - PrivatePay (Aleo)
 
 **Last Updated**: 2025-01-28
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-This guide covers deployment of PrivatePay (Aleo) to production. The app is a Vite-based React frontend with optional backend APIs.
+This guide covers deployment of **PrivatePay (Aleo)** to production. The app is Aleo-only: Vite/React frontend, Leo Wallet, treasury flows, and optional withdraw relayer (backend).
 
 ---
 

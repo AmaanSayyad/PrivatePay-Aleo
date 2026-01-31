@@ -1,4 +1,6 @@
-# Vercel: Frontend vs Backend
+# Vercel: Frontend vs Backend (Aleo)
+
+PrivatePay is **Aleo-only**. The frontend calls your backend (or serverless `/api/withdraw`) for treasury withdrawals.
 
 ## What runs on Vercel
 

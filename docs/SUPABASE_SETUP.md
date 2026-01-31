@@ -1,6 +1,6 @@
 # Supabase Setup for PrivatePay (Aleo)
 
-Payment links, balances, and transaction history require Supabase. Follow these steps to get everything working.
+PrivatePay is **Aleo-only**. Payment links, balances, transaction history, and points use Supabase. Follow these steps to get everything working.
 
 ---
 

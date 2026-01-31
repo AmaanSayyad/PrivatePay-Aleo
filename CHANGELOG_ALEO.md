@@ -20,7 +20,7 @@
 - **Frontend (React + Vite):**
   - Aleo hub at `/aleo` with Leo Wallet (Testnet Beta)
   - Pages: Credit, Lending, Dark Pool, AMM, Vaults, Treasury
-  - SDK wrappers in `src/lib/aleo/` for all programs (credit, lending, darkpool, amm, treasury, compliance, bridge)
+  - SDK wrappers in `src/lib/aleo/` for all programs (credit, lending, darkpool, amm, treasury, compliance)
   - Transaction helper and error handling
 
 - **Fixes this wave:**
