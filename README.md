@@ -1,9 +1,12 @@
 # PrivatePay 🐙
 
-> **Private payments on Aleo** — zero-knowledge DeFi, treasury flows, and private transfers. *Aleo Privacy Buildathon submission.*
+> The first on-chain untraceable, unidentifiable, private payments on Aleo.
+Powered by Elliptic Curve Diffie-Hellman (ECDH) + secp256k1 + BIP 0352 / EIP 5564 + ROFL DarkPool Mixer
+
+Simply means “Stealth Crypto Payments using multilayer forks”
+
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Built with Kiro](https://img.shields.io/badge/Built%20with-Kiro%20AI-purple)](https://kiro.ai/)
 
 ## 🏆 Aleo Privacy Buildathon
 
@@ -11,7 +14,7 @@ PrivatePay is submitted to the **[Aleo Privacy Buildathon](https://app.akindo.io
 
 ---
 
-**Vision:** Private payments and DeFi on **Aleo only** — payment links, treasury flows, Leo Wallet, and 7 Leo programs (credit, lending, dark pool, AMM, vaults, treasury, compliance). Zero-knowledge by default.
+**Vision:** Private payments and DeFi on **Aleo** — payment links, treasury flows, Leo Wallet, and 7 Leo programs (credit, lending, dark pool, AMM, vaults, treasury, compliance). Zero-knowledge by default.
 
 ---
 
@@ -193,7 +196,7 @@ flowchart LR
 ## 🎯 Competitive Landscape
 
 ### Why PrivatePay Wins
-<img width="820" height="221" alt="Screenshot 2025-11-30 at 5 43 32 AM" src="https://github.com/user-attachments/assets/84f95d8e-b13a-47a1-ab44-3d4f4448c705" />
+<img width="712" height="182" alt="Screenshot 2026-01-16 at 11 42 10 AM" src="https://github.com/user-attachments/assets/521a7d66-118c-4c91-bae5-9c0783ea5e1d" />
 
 ---
 
@@ -262,50 +265,6 @@ flowchart LR
 4. **Fund Withdrawal** — stealthPriv = spendPriv + tweak; sign and transfer to main wallet.
 
 ---
-
-## 🤖 Built with Kiro AI
-
-PrivatePay was developed using **Kiro AI** - an advanced AI-powered development platform. The entire project, from cryptographic implementation to UI components, was built in **4 weeks** with:
-
-- ✅ **Zero security vulnerabilities** through automated validation
-- ✅ **100% test coverage** with property-based testing
-- ✅ **Consistent code quality** across 50+ files
-- ✅ **Comprehensive documentation** auto-generated
-
-### Kiro Features Used
-
-🎯 **Spec-Driven Development**
-- Formal requirements using EARS syntax
-- 15 correctness properties with mathematical guarantees
-- Complete traceability from requirements to code
-
-🔄 **Agent Hooks**
-- Automated testing on every file save
-- Cryptographic validation for security
-- Linting for code consistency
-
-📚 **Steering Documents**
-- Project-specific coding standards
-- Security best practices enforced automatically
-- Consistent patterns across all components
-
-🔌 **Model Context Protocol (MCP)**
-- Real-time blockchain validation
-- Database query integration
-- Cryptographic correctness checking
-
-### Development Metrics
-
-| Metric | Traditional | With Kiro | Improvement |
-|--------|-------------|-----------|-------------|
-| Development Time | 12 weeks | 4 weeks | **66% faster** |
-| Security Issues | 5-10 | 0 | **100% reduction** |
-| Test Coverage | 60-70% | 100% | **40% increase** |
-| Code Review Time | 3-5 iterations | 0-1 iterations | **80% reduction** |
-
-**📖 Read the full story:** [How Kiro Was Used in PrivatePay](./KIRO_USAGE.md)
-
-**🔍 Explore the artifacts:** [.kiro directory](./.kiro/)
 
 ## 🧠 System Architecture Overview
 
