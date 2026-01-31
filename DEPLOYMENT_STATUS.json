@@ -1,0 +1,39 @@
+{
+  "status": "ready-for-video",
+  "contracts_written": true,
+  "contracts_deployed": false,
+  "app_functional": true,
+  "deployment_blocked_by": "Windows SDK requirement",
+  "recommendation": "Use mock mode for video demo - fully functional",
+  "deployment_options": [
+    "Docker exec into Sandbox container",
+    "Aztec DevNet web interface",
+    "Linux/Mac system with SDK",
+    "Keep mock mode (works perfectly)"
+  ],
+  "contracts": [
+    {
+      "name": "DummyZEC",
+      "path": "aztec/contracts/DummyZEC.nr",
+      "size": "152 lines",
+      "status": "written"
+    },
+    {
+      "name": "ZcashBridge",
+      "path": "aztec/contracts/ZcashBridge.nr",
+      "size": "189 lines",
+      "status": "written"
+    },
+    {
+      "name": "PZUSD",
+      "path": "aztec/contracts/PZUSD.nr",
+      "size": "164 lines",
+      "status": "written"
+    }
+  ],
+  "current_addresses": {
+    "bridge": "0x0000000000000000000000000000000000000001 (mock)",
+    "dummyZec": "0x0000000000000000000000000000000000000002 (mock)",
+    "pzusd": "0x0000000000000000000000000000000000000003 (mock)"
+  }
+}
