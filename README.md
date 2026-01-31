@@ -142,19 +142,19 @@ sequenceDiagram
 ```mermaid
 flowchart LR
   subgraph Frontend["Frontend"]
-    React[React + Vite]
+    React["React + Vite"]
     TS[TypeScript]
   end
   subgraph Chain["Blockchain"]
     Aptos[Aptos]
     Aleo[Aleo]
   end
-  subgraph Data["Data & Backend"]
+  subgraph Data["Data and Backend"]
     Supabase[Supabase]
-    Express[Node.js / Express]
+    Express["Node.js / Express"]
   end
   subgraph Crypto["Cryptography"]
-    Noble[@noble/secp256k1]
+    Noble["noble secp256k1"]
   end
 
   React --> Aptos
@@ -238,22 +238,22 @@ flowchart LR
 ```mermaid
 flowchart LR
   subgraph Meta["1. Meta Address"]
-    A1[spendPriv, spendPub] --> A2[viewingPriv, viewingPub]
-    A2 --> A3[metaAddress = spendPub, viewingPub]
+    A1["spendPriv spendPub"] --> A2["viewingPriv viewingPub"]
+    A2 --> A3["metaAddress"]
   end
   subgraph Stealth["2. Stealth Address"]
-    B1[ephemeralPriv, ephemeralPub] --> B2[ECDH → shared secret]
-    B2 --> B3[tweak = H(shared)]
-    B3 --> B4[stealthPub = spendPub + tweak·G]
-    B4 --> B5[Aptos address]
+    B1["ephemeral keys"] --> B2["ECDH shared secret"]
+    B2 --> B3["tweak H shared"]
+    B3 --> B4["stealthPub"]
+    B4 --> B5["Aptos address"]
   end
   subgraph Detect["3. Payment Detection"]
-    C1[ECDH(viewingPriv, ephemeralPub)] --> C2[Derive stealth address]
-    C2 --> C3[Scan chain for funds]
+    C1["ECDH derive"] --> C2["Derive stealth address"]
+    C2 --> C3["Scan chain"]
   end
   subgraph Withdraw["4. Withdrawal"]
-    D1[stealthPriv = spendPriv + tweak] --> D2[Sign tx]
-    D2 --> D3[Transfer to main wallet]
+    D1["stealthPriv"] --> D2["Sign tx"]
+    D2 --> D3["Transfer to main wallet"]
   end
   Meta --> Stealth --> Detect --> Withdraw
 ```
