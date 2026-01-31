@@ -5,8 +5,12 @@ Powered by Elliptic Curve Diffie-Hellman (ECDH) + secp256k1 + BIP 0352 / EIP 556
 
 Simply means “Stealth Crypto Payments using multilayer forks”
 
-
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+| | Link |
+|---|------|
+| **Pitch deck** | *https://docs.google.com/presentation/d/1rQyEC2gRuy3arVqni7aFuD2L2hc0hzocpp_TvHjr4h0/edit?usp=sharing* |
+| **Live link** | *https://private-pay-aleo.vercel.app/* |
+| **Demo video** | *https://youtu.be/cCM4ATlkBVE* |
+| **Wave Updates** | *https://docs.google.com/document/d/1jrbLIhk5Y1NGRRr8UP30nPfkppXoCvjkCuUhbxIyUOc/edit?usp=sharing* |
 
 ## 🏆 Aleo Privacy Buildathon
 
