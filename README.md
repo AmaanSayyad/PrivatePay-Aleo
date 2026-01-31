@@ -1,6 +1,6 @@
 # PrivatePay 🐙
 
-> **Private payments on Aptos + Aleo** — untraceable stealth payments (Aptos) and zero-knowledge DeFi (Aleo). *Aleo Privacy Buildathon submission.*
+> **Private payments on Aleo** — zero-knowledge DeFi, treasury flows, and private transfers. *Aleo Privacy Buildathon submission.*
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Built with Kiro](https://img.shields.io/badge/Built%20with-Kiro%20AI-purple)](https://kiro.ai/)
@@ -146,7 +146,6 @@ flowchart LR
     TS[TypeScript]
   end
   subgraph Chain["Blockchain"]
-    Aptos[Aptos]
     Aleo[Aleo]
   end
   subgraph Data["Data and Backend"]
@@ -157,14 +156,13 @@ flowchart LR
     Noble["noble secp256k1"]
   end
 
-  React --> Aptos
   React --> Aleo
   React --> Supabase
   React --> Express
   React --> Noble
 ```
 
-- **Blockchain**: Aptos (stealth payments) + Aleo (ZK DeFi: credit, lending, dark pool, AMM, vaults, treasury, compliance)
+- **Blockchain**: Aleo (ZK DeFi: credit, lending, dark pool, AMM, vaults, treasury, compliance)
 - **Frontend**: React + TypeScript + Vite
 - **Backend**: Node.js + Express
 - **Database**: Supabase (PostgreSQL)
@@ -216,7 +214,7 @@ flowchart LR
 
 ### Phase 3: Payment Expansion 🔮
 - 🔮 Private credit and debit card payments
-- 🔮 Private cross-chain bridges
+- 🔮 Private Aleo bridges
 - 🔮 Disposable wallets
 
 ### Phase 4: Enterprise Features 🔮
@@ -245,7 +243,7 @@ flowchart LR
     B1["ephemeral keys"] --> B2["ECDH shared secret"]
     B2 --> B3["tweak H shared"]
     B3 --> B4["stealthPub"]
-    B4 --> B5["Aptos address"]
+    B4 --> B5["Aleo address"]
   end
   subgraph Detect["3. Payment Detection"]
     C1["ECDH derive"] --> C2["Derive stealth address"]
@@ -261,7 +259,7 @@ flowchart LR
 **Steps (summary):**
 
 1. **Meta Address** — Generate spend key pair and viewing key pair; meta address = (spendPub, viewingPub).
-2. **Stealth Address** — Ephemeral key → ECDH shared secret → tweak → stealth public key → Aptos address.
+2. **Stealth Address** — Ephemeral key → ECDH shared secret → tweak → stealth public key → Aleo address.
 3. **Payment Detection** — Recipient derives same stealth address via ECDH(viewingPriv, ephemeralPub), scans chain.
 4. **Fund Withdrawal** — stealthPriv = spendPriv + tweak; sign and transfer to main wallet.
 
@@ -313,7 +311,7 @@ PrivatePay was developed using **Kiro AI** - an advanced AI-powered development 
 
 ## 🧠 System Architecture Overview
 
-Below is a concise, technical view of how the full PrivatePay system is wired across chains and infra.
+Below is a concise, technical view of how the full PrivatePay system is wired (Aleo Testnet, Supabase, relayer).
 
 ### Component Overview
 
@@ -322,23 +320,19 @@ flowchart TB
   subgraph Client["Client"]
     UI[React / Vite App]
     Leo[Leo Wallet]
-    Petra[Petra Wallet]
   end
 
-  subgraph Chains["Blockchains"]
+  subgraph Chains["Blockchain"]
     Aleo[Aleo Testnet]
-    Aptos[Aptos]
   end
 
-  subgraph Backend["Backend & Data"]
+  subgraph Backend["Backend and Data"]
     Supabase[(Supabase)]
     Relayer[Relayer / Express]
   end
 
   UI <--> Leo
-  UI <--> Petra
   Leo --> Aleo
-  Petra --> Aptos
   UI <--> Supabase
   UI --> Relayer
   Relayer --> Aleo
@@ -352,7 +346,7 @@ sequenceDiagram
   participant User
   participant UI as PrivatePay Web App
   participant Wallet as Wallet Adapters
-  participant Chain as Blockchain Networks
+  participant Chain as Aleo Testnet
   participant Infra as Infrastructure Services
   participant Relayer as Bridge Relayers
 
@@ -370,29 +364,13 @@ sequenceDiagram
   Chain-->>Wallet: Transaction hash
   Wallet-->>UI: Confirmation
 
-  Note over Chain,Infra: Chain-specific integrations
-
-  Chain->>Helius: Solana enhanced RPC
-  Chain->>ArciumMPC: Private DeFi operations
-  Chain->>AztecL2: Starknet privacy layer
-  Chain->>Axelar: Cross-chain messaging
-
-  Note over Relayer,Chain: Zcash bridge operations
-
-  Relayer->>Zcash: Monitor deposits
-  Zcash-->>Relayer: Transaction events
-
   Chain-->>UI: Updated balances, state
   UI-->>User: Show transaction status
 ```
 
-At the center is the **React/Vite** app, which talks to wallets, chains, Supabase, and relayer backends. Privacy is enforced through:
+At the center is the **React/Vite** app, which talks to Leo Wallet, Aleo Testnet, Supabase, and the relayer. Privacy is enforced through Aleo’s zero-knowledge proofs and encrypted records.
 
-- **Stealth meta-address registries** on Aptos, Starknet, Solana, Near, Fhenix.
-- **Bridge programs** on supported chains representing sZEC / private tickets.
-- **Relayer logic** that connects Zcash with all other chains.
-
-### Stealth Meta-Address Flow (Aptos, Starknet, Solana)
+### Stealth Meta-Address Flow (Aleo)
 
 ```mermaid
 sequenceDiagram
@@ -418,27 +396,8 @@ sequenceDiagram
 
 Implemented with:
 
-- `src/lib/aptos/stealthAddress.js`
-- `src/lib/starknet/stealthAddress.js`
-- `src/lib/evm/stealthAddress.js`
-- `src/lib/solanaZcashBridge/index.js` (Solana ↔ Zcash stealth meta-addresses)
-
----
-
-## 🧩 Integrations & Deep Dives
-
-For detailed, chain-specific architecture and flows, see these top-level docs in the repo:
-
-- `APTOS_INTEGRATION_MERMAID.md` – Aptos treasury + username links.
-- `SOLANA_HELIUS_INTEGRATION_MERMAID.md` & `HELIUS_SOLANA_ZCASH_BRIDGE.md` – Solana–Zcash bridge via Helius.
-- `STARKNET_INTEGRATION.md` & `STARKNET_ZTARKNET_INTEGRATION_MERMAID.md` – Starknet / Ztarknet wallet, sZEC, bridge, lending, swaps.
-- `OSMOSIS_INTEGRATION_MERMAID.md` – Osmosis vault and Zcash memo-based bridge.
-- `MINA_INTEGRATION_MERMAID.md` – Mina zkApp and Auro wallet.
-- `ZCASH_CORE_MERMAID.md` – Zcash RPC/lightwallet + relayer core.
-- `ARCIUM_INTEGRATION_MERMAID.md` – Arcium DeFi, private swaps, and DarkPool.
-- `AZTEC_INTEGRATION_MERMAID.md` & `AZTEC_FLOWS.md` – Aztec rollup, encrypted notes, and Zcash bridge.
-- `AXELAR_INTEGRATION_MERMAID.md` & `AXELAR_INTEGRATION.md` – AxelarStealthBridge, Axelar GMP.
-- `aleo/README.md`, `ALEO_BUILDATHON_ALIGNMENT.md`, `ALEO_INTEGRATION_MERMAID.md` – Aleo Leo programs (zk_credit, dark_pool, shielded_amm, private_lending, treasury, compliance, cross_chain_vault), buildathon alignment, and Mermaid diagrams ([Aleo Developer Docs](https://developer.aleo.org/), [Leo Language](https://docs.leo-lang.org/leo), [Leo Playground](https://play.leo-lang.org/), [Aleo.org](https://aleo.org/)).
+- `src/lib/aleo/` – Aleo transaction helper, credit, lending, dark pool, treasury.
+- `aleo/README.md`, `ALEO_BUILDATHON_ALIGNMENT.md`, `ALEO_INTEGRATION_MERMAID.md` – Leo programs (zk_credit, dark_pool, shielded_amm, private_lending, treasury, compliance, cross_chain_vault), buildathon alignment, and Mermaid diagrams ([Aleo Developer Docs](https://developer.aleo.org/), [Leo Language](https://docs.leo-lang.org/leo), [Leo Playground](https://play.leo-lang.org/), [Aleo.org](https://aleo.org/)).
 
 ---
 
@@ -448,7 +407,7 @@ For detailed, chain-specific architecture and flows, see these top-level docs in
 
 - **Node.js** ≥ 20.x (tested with Node 22.x)
 - **npm** ≥ 10.x
-- Browser wallets: **Leo Wallet** (Aleo), **Petra** (Aptos)
+- Browser wallet: **Leo Wallet** (Aleo)
 
 ### 2. Install Dependencies
 
@@ -459,7 +418,7 @@ npm install
 
 ### 3. Environment Variables (root `.env`)
 
-Each developer creates their **own** `.env` with at least:
+Copy `.env.example` to `.env` and fill in your values. At minimum:
 
 ```bash
 # Core app
@@ -467,85 +426,25 @@ VITE_BACKEND_URL=http://localhost:3400
 VITE_WEBSITE_HOST=privatepay.me
 VITE_APP_ENVIRONMENT=dev
 
-# Supabase
+# Supabase (payment links, balances, points)
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-# Aptos
-VITE_APTOS_MODULE_ADDRESS=your_aptos_module_address
-VITE_TREASURY_WALLET_ADDRESS=your_aptos_treasury_wallet
-VITE_TREASURY_PRIVATE_KEY=your_aptos_treasury_private_key
+# Aleo (Leo Wallet, deploy scripts)
+VITE_ALEO_PRIVATE_KEY=
+NETWORK=testnet
+PRIVATE_KEY=
+ENDPOINT=https://api.explorer.provable.com/v1
 
-# Arcium / Solana programs
-VITE_ARCIUM_PROGRAM_ID=your_arcium_program_id
-VITE_PRIVATE_PAY_PROGRAM_ID=your_private_pay_program_id
-VITE_PRIVATE_SWAP_PROGRAM_ID=your_private_swap_program_id
-VITE_DARK_POOL_PROGRAM_ID=your_dark_pool_program_id
-VITE_ARCIUM_CLUSTER_OFFSET=0
-VITE_SOLANA_RPC_URL=https://api.devnet.solana.com
+# Dynamic.xyz (auth; optional)
+VITE_DYNAMIC_ENV_ID=
 
-# Axelar bridge (on-chain deployment addresses)
-VITE_AXELAR_BRIDGE_ADDRESS=your_axelar_bridge_address
-VITE_AXELAR_BRIDGE_ADDRESS_ARBITRUM_SEPOLIA=your_arbitrum_sepolia_bridge_address
-VITE_AXELAR_BRIDGE_ADDRESS_BASE_SEPOLIA=your_base_sepolia_bridge_address
-VITE_AXELAR_BRIDGE_ADDRESS_POLYGON_SEPOLIA=your_polygon_sepolia_bridge_address
-
-# TUSDC token addresses (chain-specific)
-VITE_AXELAR_TUSDC_ADDRESS_BASE_SEPOLIA=0x2823Af7e1F2F50703eD9f81Ac4B23DC1E78B9E53
-VITE_AXELAR_TUSDC_ADDRESS_ARBITRUM_SEPOLIA=0xd17beb0fE91B2aE5a57cE39D1c3D15AF1a968817
-
-# Deployer private key (TESTNET ONLY - for token faucet functionality)
-# WARNING: Never commit this to version control or use in production!
-VITE_DEPLOYER_PRIVATE_KEY=your_deployer_private_key
-
-# Axelar network configuration
-VITE_NETWORK=testnet
-
-# Axelar gas configuration (optional, defaults provided)
-VITE_AXELAR_GAS_MULTIPLIER=1.8
-VITE_AXELAR_ITS_GAS_MULTIPLIER=3.0
-VITE_AXELAR_MIN_GAS_FEE_WEI=0
-VITE_AXELAR_MIN_GAS_FEE_WEI_ITS=0
-
-# Zcash (frontend)
-VITE_ZCASH_NETWORK=testnet
-VITE_ZCASH_RPC_URL=http://localhost:18232
-VITE_ZCASH_RPC_USER=zcashuser
-VITE_ZCASH_RPC_PASSWORD=zcashpass
-
-# Starknet configuration (Sepolia testnet)
-VITE_STARKNET_NETWORK=testnet
-VITE_STARKNET_RPC_URL=https://starknet-sepolia.public.blastapi.io
-VITE_STARKNET_STEALTH_CONTRACT=your_starknet_stealth_contract
-VITE_STARKNET_PAYMENT_MANAGER=your_starknet_payment_manager
-VITE_STARKNET_BRIDGE_CONTRACT=your_starknet_bridge_contract
-VITE_STARKNET_LENDING_CONTRACT=your_starknet_lending_contract
-VITE_STARKNET_SWAP_CONTRACT=your_starknet_swap_contract
-VITE_STARKNET_GARAGA_VERIFIER=your_starknet_garaga_verifier
-VITE_STARKNET_SZEC_TOKEN=your_starknet_szec_token
-
-# Helius / Solana–Zcash bridge
-VITE_HELIUS_API_KEY=your_helius_api_key
-VITE_SOLANA_NETWORK=devnet
-VITE_ZCASH_BRIDGE_PROGRAM_ID=your_solana_zcash_bridge_program_id
-VITE_USDC_MINT=your_usdc_mint
-
-# Osmosis / CosmosKit / WalletConnect
-VITE_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
-
-# Relayer / backend Zcash RPC
-BRIDGE_OPERATOR_PRIVATE_KEY=your_base58_bridge_operator_private_key
-ZCASH_RPC_URL=http://localhost:18232
-ZCASH_RPC_USER=zcashuser
-ZCASH_RPC_PASSWORD=zcashpass
-ZCASH_BRIDGE_ADDRESS=your_zcash_bridge_address
-
-# Backend server
-PORT=3001
+# Backend (relayer / withdraw)
+PORT=3400
 HOST=0.0.0.0
 ```
 
-For a full list and guidance, see `docs/guides/ENVIRONMENT_SETUP.md` and `docs/guides/DEPLOYMENT.md`.
+See `.env.example` and `docs/guides/ENVIRONMENT_SETUP.md` for the full list.
 
 ### 4. Run Frontend (or Full Stack)
 
@@ -565,55 +464,39 @@ npm run dev:all
 src/
   components/
     home/                # Dashboard cards & charts
-    aptos/               # Aptos payment UIs
-    mina-protocol/       # Mina wallet & helper components
-    osmosis/             # Osmosis wallet button, bridge UI
+    aleo/                # Aleo DeFi UIs (dark pool, AMM, credit, lending, treasury)
+    payment/             # Payment & payment link components
     shared/              # Navbar, header, icons, dialogs
 
   pages/
     IndexPage.jsx        # Landing/dashboard
-    SendPage.jsx         # Aptos send flow
-    MinaPage.jsx         # Mina integration
-    ZcashPage.jsx        # Zcash wallet
-    ZcashMinaBridgePage.jsx
-    StarknetPage.jsx
-    ZcashStarknetBridgePage.jsx
-    ZtarknetLendingPage.jsx
-    ZtarknetSwapPage.jsx
-    OsmosisPage.jsx
-    SolanaZcashBridgePage.jsx
+    AleoPage.jsx         # Aleo hub & private transfer
+    SendPage.jsx         # Send & withdraw (Aleo treasury)
+    PointsPage.jsx       # Points & rewards
+    PaymentLinksPage.jsx
+    TransactionsPage.jsx
 
   providers/
     RootProvider.jsx     # Composes all context providers
-    AptosProvider.jsx
-    SolanaProvider.jsx   # Helius-aware Solana provider
-    StarknetProvider.jsx
-    ZcashProvider.jsx
-    CosmosProvider.jsx
+    AleoProvider.jsx     # Leo Wallet adapter
 
   lib/
-    aptos/               # Stealth + Aptos client
-    starknet/            # Stealth, bridge, relay helpers
-    solanaZcashBridge/   # Solana ↔ Zcash client + utils
-    helius/              # Helius client wrappers
-    zcash/               # Zcash wallet + RPC helpers
-    arcium/              # Arcium/DeFi helpers
-    axelar/              # Axelar GMP & tokens
+    aleo/                # Aleo transaction helper, credit, lending, dark pool, treasury
+    supabase.js          # Payment links, balances, points
 
-src/circuits/
-  bridge.circom          # Circom circuit for bridge proofs
+aleo/
+  programs/              # Leo programs (zk_credit, dark_pool, shielded_amm, etc.)
 ```
 
 ---
 
 ## 🧪 Testing
 
-- **Frontend e2e (bridges & stablecoin)**
+- **Aleo / frontend**
 
   ```bash
+  npm run test
   npm run test:e2e
-  npm run test:e2e:bridge
-  npm run test:e2e:stablecoin
   ```
 
 See `docs/guides/` for setup and deployment.

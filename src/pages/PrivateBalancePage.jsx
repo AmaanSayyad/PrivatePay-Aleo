@@ -16,7 +16,7 @@ function Transactions() {
       <div className="w-full rounded-2xl h-14 p flex items-center justify-center gap-2 text-sm text-white">
         <div className="bg-white size-6 rounded-xl">
           <img
-            src="/assets/oasis-logo.png"
+            src="/aleo-logos/SVG/secondary-icon-dark.svg"
             alt="oasis-logo"
             className="w-full h-full object-contain"
           />
@@ -39,8 +39,8 @@ function Transactions() {
 
         <div className="flex flex-col w-full">
           <TxItem
-            tokenImg={"/assets/eth-logo.png"}
-            chainImg={"/assets/eth-logo.png"}
+            tokenImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
+            chainImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
             title={"trivial.jane.squidl.me - Deposit"}
             isNounsies
             addressNounsies={"0x02919065a8Ef7A7826b3D9f3DEFef2FA0a4d1f34"}
@@ -52,8 +52,8 @@ function Transactions() {
           />
 
           <TxItem
-            tokenImg={"/assets/eth-logo.png"}
-            chainImg={"/assets/eth-logo.png"}
+            tokenImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
+            chainImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
             title={"xx.jane.squidl.me - Deposit"}
             isNounsies
             addressNounsies={"0x02919065a8Ef7A782Bb3D9f3DEFef2F230a4d1f34"}
@@ -65,8 +65,8 @@ function Transactions() {
           />
 
           <TxItem
-            tokenImg={"/assets/eth-logo.png"}
-            chainImg={"/assets/eth-logo.png"}
+            tokenImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
+            chainImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
             title={"zes.hui.squidl.me - Deposit"}
             isNounsies
             addressNounsies={"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"}
@@ -78,8 +78,8 @@ function Transactions() {
           />
 
           <TxItem
-            tokenImg={"/assets/eth-logo.png"}
-            chainImg={"/assets/eth-logo.png"}
+            tokenImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
+            chainImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
             title={"pol.manda.squidl.me - Deposit"}
             isNounsies
             addressNounsies={"0x02919065a8Ef7A782Bb3D9f3134Fef2FA0a4d1f34"}
@@ -91,8 +91,8 @@ function Transactions() {
           />
 
           <TxItem
-            tokenImg={"/assets/eth-logo.png"}
-            chainImg={"/assets/eth-logo.png"}
+            tokenImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
+            chainImg={"/aleo-logos/SVG/secondary-icon-dark.svg"}
             title={"joi.mike.squidl.me - Deposit"}
             isNounsies
             addressNounsies={"0x49048044d57e1c92a77f79988d21fa8faf74e97e"}

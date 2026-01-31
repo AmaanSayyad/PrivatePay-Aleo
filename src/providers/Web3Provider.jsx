@@ -7,7 +7,6 @@ import {
 import { ethers } from "ethers";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { CONTRACT_ADDRESS, customEvmNetworks } from "../config";
-import ContractABI from "../abi/StealthSigner.json";
 import toast from "react-hot-toast";
 import { sleep } from "../utils/process.js";
 
@@ -49,82 +48,67 @@ export default function Web3Provider({ children }) {
 
   const isInitiating = useRef(false);
 
-  const oasis = customEvmNetworks.find((chain) => chain.group === "oasis");
+  // Aleo-only: no EVM chains configured
+  const oasis = customEvmNetworks?.find?.((chain) => chain?.group === "oasis");
 
   async function init(forceSapphire = false) {
     if (isInitiating.current || !primaryWallet) return;
-    
+    if (!customEvmNetworks?.length) {
+      setLoaded(true);
+      return;
+    }
     isInitiating.current = true;
     try {
       const _provider = await getWeb3Provider(primaryWallet);
       const _signer = await getSigner(primaryWallet);
-      
-      // Ensure provider has network/chainId before wrapping
-      // This prevents Dynamic SDK errors when trying to access chainId
       try {
         const network = await _provider.getNetwork();
         if (!network || network.chainId === undefined || network.chainId === null) {
-          console.warn("Provider network not available yet, waiting...");
-          // Wait a bit and retry
           await sleep(1000);
           const retryNetwork = await _provider.getNetwork();
           if (!retryNetwork || retryNetwork.chainId === undefined || retryNetwork.chainId === null) {
             throw new Error("Provider chainId is not available");
           }
         }
-        console.log("[Web3Provider] Provider initialized with chainId:", network.chainId.toString());
-        
-        // Only wrap with Sapphire if we're on Sapphire network
+        if (!oasis) {
+          setProvider(_provider);
+          setSigner(_signer);
+          setContract(null);
+          setLoaded(true);
+          return;
+        }
         const isSapphire = network.chainId === oasis.chainId;
         if (isSapphire) {
           const wrappedProvider = wrapEthersProvider(_provider);
           const wrappedSigner = wrapEthersSigner(_signer);
-          
-          // Only create contract if we have contract address
-          if (CONTRACT_ADDRESS) {
-            const contract = new ethers.Contract(
-              CONTRACT_ADDRESS,
-              ContractABI.abi,
-              wrappedSigner
-            );
-            setContract(contract);
-          } else {
-            console.warn("Contract address not configured. Set VITE_SQUIDL_STEALTHSIGNER_CONTRACT_ADDRESS environment variable.");
-            setContract(null);
-          }
-          
           setProvider(wrappedProvider);
           setSigner(wrappedSigner);
+          setContract(null);
         } else {
-          // On other networks, use unwrapped provider/signer
-          // Contract will be null until user switches to Sapphire
-          console.log("[Web3Provider] Not on Sapphire network, using unwrapped provider. User can switch network later.");
           setProvider(_provider);
           setSigner(_signer);
           setContract(null);
         }
-        
         setLoaded(true);
         monitorNetworkChange();
       } catch (networkError) {
         console.error("Error getting network from provider:", networkError);
-        throw new Error("Provider network not available. Please ensure your wallet is connected.");
+        setLoaded(true);
       }
     } catch (e) {
       console.error("Error initializing web3 provider", e);
-      setLoaded(false);
+      setLoaded(true);
     } finally {
       isInitiating.current = false;
     }
   }
 
   async function switchNetworkIfNeeded(withLoading = false) {
+    if (!oasis) return;
     if (withLoading) {
       if (isNetworkChecking) return;
       setIsNetworkChecking(true);
     }
-
-    console.log("checking...");
 
     try {
       const network = await provider?.getNetwork();

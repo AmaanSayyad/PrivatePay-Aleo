@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useWeb3 } from "../../providers/Web3Provider";
 import { useDebounce } from "@uidotdev/usehooks";
 import { ethers } from "ethers";
-import { sapphireTestnet } from "../../config";
+import { sapphireTestnet } from "../../config"; // null when Aleo-only
 
 const confettiConfig = {
   angle: 90,
@@ -153,7 +153,12 @@ function StepOne({ setStep, setOpen }) {
         throw new Error("Auth signer not found in localStorage");
       }
 
-      // Sapphire Provider and Paymaster Wallet
+      if (!sapphireTestnet) {
+        toast.error("Paymaster registration is not configured. Use Aleo wallet for payments.");
+        throw new Error("sapphireTestnet not configured (Aleo-only app)");
+      }
+
+      // Sapphire Provider and Paymaster Wallet (other-chain; disabled when Aleo-only)
       const sapphireProvider = new ethers.JsonRpcProvider(sapphireTestnet.rpcUrls[0]);
       const paymasterPK = import.meta.env.VITE_PAYMASTER_PK;
       
@@ -287,7 +292,7 @@ function StepOne({ setStep, setOpen }) {
         // Get paymaster wallet address for error message
         try {
           const paymasterPK = import.meta.env.VITE_PAYMASTER_PK;
-          if (paymasterPK) {
+          if (paymasterPK && sapphireTestnet) {
             const tempProvider = new ethers.JsonRpcProvider(sapphireTestnet.rpcUrls[0]);
             const tempWallet = new ethers.Wallet(paymasterPK, tempProvider);
             const balance = await tempProvider.getBalance(tempWallet.address);

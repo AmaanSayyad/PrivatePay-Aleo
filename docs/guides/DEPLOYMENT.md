@@ -6,7 +6,7 @@
 
 ## Overview
 
-This guide covers deployment of PrivatePay (Aptos + Aleo) to production. The app is a Vite-based React frontend with optional backend APIs.
+This guide covers deployment of PrivatePay (Aleo) to production. The app is a Vite-based React frontend with optional backend APIs.
 
 ---
 
@@ -15,7 +15,7 @@ This guide covers deployment of PrivatePay (Aptos + Aleo) to production. The app
 - Node.js 18+ installed
 - npm or yarn
 - Environment variables configured (see `ENVIRONMENT_SETUP.md`)
-- Leo Wallet (Aleo) and Petra (Aptos) for testing
+- Leo Wallet (Aleo) for testing
 
 ---
 
@@ -115,7 +115,7 @@ Backend is optional (health check only). Deploy `backend` if you need it; see `b
 
 ## Post-Deployment
 
-1. **Verify**: Homepage loads, Leo Wallet / Petra connect, Aptos send and Aleo transfer work.
+1. **Verify**: Homepage loads, Leo Wallet connects, and Aleo transfer works.
 2. **Monitor**: Use your platform’s logs and optional error tracking (e.g. Sentry).
 3. **HTTPS**: Use HTTPS and redirect HTTP to HTTPS.
 
