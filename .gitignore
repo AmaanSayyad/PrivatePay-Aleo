@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+*.local
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# IDE and OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs and cache
+*.log
+npm-debug.log*
+.npm
+.cache/
+.parcel-cache/
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Aleo / Leo
+aleo/target/
+*.aleo.key
+
+# Aptos
+.aptos/
+
+# Misc
+*.tgz
+.turbo
