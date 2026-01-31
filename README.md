@@ -83,7 +83,6 @@ sequenceDiagram
   participant Leo as Leo Wallet
   participant Aleo as Aleo Testnet
   participant Supabase
-  participant Relayer
   participant Recipient
 
   Sender->>App: Pay via payment link (amount, recipient alias)
@@ -92,18 +91,10 @@ sequenceDiagram
   Aleo-->>Leo: tx hash
   App->>Supabase: recordPayment(sender, recipient, amount, txHash)
   Supabase->>Supabase: Credit recipient balance
-
-  Note over Recipient: Recipient sees credited balance in app
-
-  Recipient->>App: Withdraw (amount, my Leo address)
-  App->>Relayer: POST /withdraw
-  Relayer->>Supabase: Verify balance
-  Relayer->>Aleo: Treasury signs transfer to recipient
-  Aleo-->>Relayer: tx hash
-  Relayer-->>App: { txHash }
-  App->>Supabase: withdrawFunds() → update balance
-  App-->>Recipient: Success + explorer link
+  App-->>Recipient: Recipient sees credited balance in app
 ```
+
+Recipients can withdraw their credited balance to their Leo wallet (see docs for setup).
 
 ---
 
@@ -133,7 +124,7 @@ sequenceDiagram
 └─ Monero-style Ring Signatures & RingCT
 
 🔍 Automated Monitoring
-├─ Backend workers for transaction detection
+├─ Event-based transaction detection
 ├─ Event-based backup system
 └─ Resilient recovery mechanism
 ```
@@ -149,9 +140,8 @@ flowchart LR
   subgraph Chain["Blockchain"]
     Aleo[Aleo]
   end
-  subgraph Data["Data and Backend"]
+  subgraph Data["Data"]
     Supabase[Supabase]
-    Express["Node.js / Express"]
   end
   subgraph Crypto["Cryptography"]
     Noble["noble secp256k1"]
@@ -159,13 +149,11 @@ flowchart LR
 
   React --> Aleo
   React --> Supabase
-  React --> Express
   React --> Noble
 ```
 
 - **Blockchain**: Aleo (ZK DeFi: credit, lending, dark pool, AMM, vaults, treasury, compliance)
 - **Frontend**: React + TypeScript + Vite
-- **Backend**: Node.js + Express
 - **Database**: Supabase (PostgreSQL)
 - **Cryptography**: @noble/secp256k1, @noble/hashes
 
@@ -268,7 +256,7 @@ flowchart LR
 
 ## 🧠 System Architecture Overview
 
-Below is a concise, technical view of how the full PrivatePay system is wired (Aleo Testnet, Supabase, relayer).
+Below is a concise, technical view of how the PrivatePay system is wired (Aleo Testnet, Supabase).
 
 ### Component Overview
 
@@ -283,17 +271,13 @@ flowchart TB
     Aleo[Aleo Testnet]
   end
 
-  subgraph Backend["Backend and Data"]
+  subgraph Data["Data"]
     Supabase[(Supabase)]
-    Relayer[Relayer / Express]
   end
 
   UI <--> Leo
   Leo --> Aleo
   UI <--> Supabase
-  UI --> Relayer
-  Relayer --> Aleo
-  Relayer --> Supabase
 ```
 
 ### High-Level Architecture
@@ -304,8 +288,6 @@ sequenceDiagram
   participant UI as PrivatePay Web App
   participant Wallet as Wallet Adapters
   participant Chain as Aleo Testnet
-  participant Infra as Infrastructure Services
-  participant Relayer as Treasury Relayer
 
   User->>UI: Open PrivatePay
   UI->>Supabase: Load user data, payment links
@@ -325,7 +307,7 @@ sequenceDiagram
   UI-->>User: Show transaction status
 ```
 
-At the center is the **React/Vite** app, which talks to Leo Wallet, Aleo Testnet, Supabase, and the relayer. Privacy is enforced through Aleo’s zero-knowledge proofs and encrypted records.
+At the center is the **React/Vite** app, which talks to Leo Wallet, Aleo Testnet, and Supabase. Privacy is enforced through Aleo’s zero-knowledge proofs and encrypted records.
 
 ### Stealth Meta-Address Flow (Aleo)
 
@@ -379,7 +361,6 @@ Copy `.env.example` to `.env` and fill in your values. At minimum:
 
 ```bash
 # Core app
-VITE_BACKEND_URL=http://localhost:3400
 VITE_WEBSITE_HOST=privatepay.me
 VITE_APP_ENVIRONMENT=dev
 
@@ -395,22 +376,14 @@ ENDPOINT=https://api.explorer.provable.com/v1
 
 # Dynamic.xyz (auth; optional)
 VITE_DYNAMIC_ENV_ID=
-
-# Backend (relayer / withdraw)
-PORT=3400
-HOST=0.0.0.0
 ```
 
 See `.env.example` and `docs/guides/ENVIRONMENT_SETUP.md` for the full list.
 
-### 4. Run Frontend (or Full Stack)
+### 4. Run
 
 ```bash
-# Frontend only
 npm run dev   # http://localhost:5173
-
-# Frontend + backend together (dev)
-npm run dev:all
 ```
 
 ---
