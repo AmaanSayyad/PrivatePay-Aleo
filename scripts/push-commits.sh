@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 # Ensure we don't commit .env
 export GIT_AUTHOR_NAME="Amaan Sayyad"
-export GIT_AUTHOR_EMAIL="amaan@users.noreply.github.com"
+export GIT_AUTHOR_EMAIL="amaansayyad@yahoo.com"
 export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 
